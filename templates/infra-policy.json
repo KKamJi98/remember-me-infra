@@ -1,0 +1,69 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:*",
+                "route53:*",
+                "apigateway:*",
+                "cloudwatch:*",
+                "logs:*",
+                "kms:*",
+                "cloudfront:*",
+                "secretsmanager:*",
+                "route53:*",
+                "lambda:*",
+                "waf:*",
+                "vpc:*",
+                "acm:*",
+                "budgets:*",
+                "sns:*",
+                "ssm:*",
+                "ce:*",
+                "servicecatalog:*"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "iam:ChangePassword",
+                "iam:CreateUser",
+                "iam:DeleteUser",
+                "iam:CreateAccessKey",
+                "iam:DeleteAccessKey",
+                "iam:UpdateAccessKey",
+                "iam:CreateLoginProfile",
+                "iam:DeleteLoginProfile",
+                "iam:UpdateLoginProfile",
+                "iam:CreateRole",
+                "iam:DeleteRole",
+                "iam:UpdateRole",
+                "iam:AttachUserPolicy",
+                "iam:DetachUserPolicy",
+                "iam:AttachRolePolicy",
+                "iam:DetachRolePolicy",
+                "iam:TagRole",
+                "iam:PassRole",
+                "iam:List*",
+                "iam:Get*"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "ec2-instance-connect:SendSSHPublicKey"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Effect": "Deny",
+            "Action": [
+                "acm-pca:*"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
