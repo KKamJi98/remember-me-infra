@@ -52,8 +52,7 @@
         {
             "Effect": "Allow",
             "Action": [
-                "ec2-instance-connect:SendSSHPublicKey",
-                "logs"
+                "ec2-instance-connect:SendSSHPublicKey"
             ],
             "Resource": "*"
         },
