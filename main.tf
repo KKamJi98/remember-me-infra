@@ -18,7 +18,7 @@ module "dev_group" {
   user_names      = ["ycs"]
   user_path       = "/dev/"
   pgp_key         = var.pgp_key
-  policy_file     = "${path.module}/template/dev-policy.json"
+  policy_file     = "${path.module}/templates/dev-policy.json"
 }
 
 module "infra_group" {
@@ -28,7 +28,7 @@ module "infra_group" {
   user_names      = ["ktj", "cbh"]
   user_path       = "/infra/"
   pgp_key         = var.pgp_key
-  policy_file     = "${path.module}/template/infra-policy.json"
+  policy_file     = "${path.module}/templates/infra-policy.json"
 }
 # module "dev_group" {
 #   source          = "./modules/iam_group_membership"
