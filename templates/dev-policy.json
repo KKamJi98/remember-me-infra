@@ -14,7 +14,9 @@
                 "vpc:*",
                 "budgets:*",
                 "sns:*",
-                "ssm:*"
+                "ssm:*",
+                "ce:*",
+                "servicecatalog:*"
             ],
             "Resource": "*"
         },
@@ -24,6 +26,9 @@
                 "iam:ChangePassword",
                 "iam:CreateUser",
                 "iam:DeleteUser",
+                "iam:CreatePolicy",
+                "iam:DeletePolicy",
+                "iam:SetDefaultPolicyVersion",
                 "iam:CreateAccessKey",
                 "iam:DeleteAccessKey",
                 "iam:UpdateAccessKey",
@@ -41,15 +46,14 @@
                 "iam:PassRole",
                 "iam:List*",
                 "iam:Get*",
-                "ce:*",
-                "servicecatalog:*"
             ],
             "Resource": "*"
         },
         {
             "Effect": "Allow",
             "Action": [
-                "ec2-instance-connect:SendSSHPublicKey"
+                "ec2-instance-connect:SendSSHPublicKey",
+                "logs"
             ],
             "Resource": "*"
         },
