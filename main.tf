@@ -62,6 +62,6 @@ module "lambda_role_policy_attachment" {
 
 module "s3" {
   source      = "./modules/s3"
-  name        = "ENGLSIH_VOCA_DEPLOY"
+  name        = "english-voca-deploy"
   policy_file = "${path.module}/templates/s3-policy.json"
 }
