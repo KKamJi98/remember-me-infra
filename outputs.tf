@@ -41,3 +41,19 @@ output "lambda_policy_arn" {
 output "lambda_role_arn" {
   value = module.lambda_iam_role.arn
 }
+
+###############################################################
+## S3_arn
+###############################################################
+
+output "S3_arn" {
+  value = module.s3.bucket_arn
+}
+
+###############################################################
+## S3_url
+###############################################################
+
+output "S3_url" {
+  value = module.s3.website_endpoint
+}
