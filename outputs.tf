@@ -25,3 +25,11 @@ output "dev_group_encrypted_passwords" {
 output "infra_group_encrypted_passwords" {
   value = module.infra_group.formatted_decrypted_passwords
 }
+
+###############################################################
+## iam_policy
+###############################################################
+
+output "lambda_policy_arn" {
+  value = module.lambda_iam_policy.arn
+}
