@@ -37,6 +37,8 @@ locals {
 resource "aws_s3_bucket_policy" "example" {
   bucket = aws_s3_bucket.deploy_bucket.id
   policy = local.replaced_policy
+
+  depends_on = [aws_s3_bucket_acl.example]
 }
 
 resource "aws_s3_bucket_website_configuration" "website-config" {
