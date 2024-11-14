@@ -25,3 +25,13 @@ module "infra_group" {
   pgp_key         = var.pgp_key
   policy_file     = "${path.module}/templates/infra-policy.json"
 }
+
+###############################################################
+## iam_policy
+###############################################################
+
+module "lambda_iam_policy" {
+  source      = "./modules/iam_policy"
+  name        = "lambda-policy"
+  policy_file = "${path.module}/templates/lambda-policy.json"
+}
