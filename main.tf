@@ -35,3 +35,13 @@ module "lambda_iam_policy" {
   name        = "lambda-policy"
   policy_file = "${path.module}/templates/lambda-policy.json"
 }
+
+###############################################################
+## iam_role
+###############################################################
+
+module "lambda_iam_role" {
+  source      = "./modules/iam_role"
+  name        = "lambda-role"
+  policy_file = "${path.module}/templates/lambda-assume-role-policy.json"
+}

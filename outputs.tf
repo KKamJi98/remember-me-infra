@@ -33,3 +33,11 @@ output "infra_group_encrypted_passwords" {
 output "lambda_policy_arn" {
   value = module.lambda_iam_policy.arn
 }
+
+###############################################################
+## iam_role
+###############################################################
+
+output "lambda_role_arn" {
+  value = module.lambda_iam_role.arn
+}
