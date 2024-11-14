@@ -55,3 +55,13 @@ module "lambda_role_policy_attachment" {
   role_name  = module.lambda_iam_role.name
   policy_arn = module.lambda_iam_policy.arn
 }
+
+###############################################################
+## S3
+###############################################################
+
+module "s3" {
+  source      = "./modules/s3"
+  name        = "S3"
+  policy_file = "${path.module}/templates/s3-policy.json"
+}
