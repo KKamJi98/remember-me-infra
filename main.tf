@@ -66,6 +66,7 @@ module "s3" {
   policy_file = "${path.module}/templates/s3-policy.json"
 }
 
+
 ###############################################################
 ## lambda_function
 ###############################################################
@@ -88,4 +89,15 @@ module "lambda_layer" {
   filename   = "${path.module}/templates/lambda/lambda_layer.zip"
 
   compatible_runtimes = ["nodejs20.x"]
+}
+  
+###############################################################
+## aws_ssm_parameter
+###############################################################
+
+module "aws_ssm_parameter" {
+  source = "./modules/aws_ssm_parameter"
+  name   = "parameter"
+  type   = "String"
+  value  = "value"
 }
