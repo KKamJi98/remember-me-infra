@@ -63,5 +63,13 @@ output "lambda_layer_arn" {
 }
 
 ###############################################################
-## lambda_layer
+## api_gateway
 ###############################################################
+
+output "api_gateway_api_endpoints" {
+  value = module.api_gateway.api_endpoint
+}
+
+output "api_gateway_arn" {
+  value = module.api_gateway.arn
+}
