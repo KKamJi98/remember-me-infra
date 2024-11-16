@@ -59,46 +59,6 @@ output "S3_name" {
 }
 
 ###############################################################
-## lambda
-###############################################################
-
-output "lambda_arn" {
-  value = module.lambda.arn
-}
-
-output "lambda_name" {
-  value = module.lambda.name
-}
-
-output "lambda_invoke_arn" {
-  value = module.lambda.invoke_arn
-}
-
-###############################################################
-## lambda_layer
-###############################################################
-
-output "lambda_layer_arn" {
-  value = module.lambda_layer.layer_arn
-}
-
-###############################################################
-## api_gateway
-###############################################################
-
-output "api_gateway_api_endpoints" {
-  value = module.api_gateway.api_endpoint
-}
-
-output "api_gateway_arn" {
-  value = module.api_gateway.arn
-}
-
-output "api_gateway_execution_arn" {
-  value = module.api_gateway.execution_arn
-}
-
-###############################################################
 ## cloudfront
 ###############################################################
 
