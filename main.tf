@@ -66,15 +66,11 @@ module "s3" {
   policy_file = "${path.module}/templates/s3-policy.json"
 }
 
-###############################################################
-## parameter_store
-###############################################################
-
-module "aws_ssm_parameter" {
+module "parameter_store_s3_bucket_name" {
   source = "./modules/aws_ssm_parameter"
-  name   = "parameter"
+  name   = "/remember-me/s3-bucket-name"
   type   = "String"
-  value  = "value"
+  value  = module.s3.bucket_name
 }
 
 ###############################################################
@@ -86,6 +82,13 @@ module "cloudfront" {
   s3_domain_name = module.s3.domain_name
   s3_id          = module.s3.id
   acm_arn        = module.route53.acm_arn
+}
+    
+module "parameter_store_cloudfront_distribution_id" {
+  source = "./modules/aws_ssm_parameter"
+  name   = "/remember-me/cloudfront-distribution-id"
+  type   = "String"
+  value  = module.cloudfront.distribution_id
 }
 
 ###############################################################
