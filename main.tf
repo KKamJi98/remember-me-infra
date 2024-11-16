@@ -67,6 +67,18 @@ module "s3" {
 }
 
 ###############################################################
+## lambda_function
+###############################################################
+
+module "lambda" {
+  source        = "./modules/lambda"
+  role_arn      = module.lambda_iam_role.arn
+  filename      = "${path.module}/templates/lambda/lambda_code.zip"
+  function_name = "voca_app_lambda"
+  runtime       = "nodejs20.x"
+}
+  
+###############################################################
 ## lambda_layer
 ###############################################################
 
