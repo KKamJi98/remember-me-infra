@@ -16,7 +16,7 @@ resource "aws_apigatewayv2_integration" "this" {
   api_id = aws_apigatewayv2_api.this.id
   #AWS_PROXY, HTTP_PROXY
   integration_type       = var.integration_type
-  integration_uri        = each.value.lambda_arn
+  integration_uri        = each.value.invoke_arn
   payload_format_version = var.payload_format_version
 }
 
