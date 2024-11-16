@@ -116,7 +116,7 @@ module "api_gateway" {
   payload_format_version = "2.0"
 
   method_lambda_map = {
-    "GET /test/" = {
+    "GET /test" = {
       lambda_invoke_arn = module.lambda.invoke_arn
       lambda_name       = module.lambda.name
     }
