@@ -5,7 +5,8 @@
       "Effect": "Allow",
       "Action": [
         "secretsmanager:GetSecretValue",
-        "secretsmanager:DescribeSecret"
+        "secretsmanager:DescribeSecret",
+        "lambda:InvokeFunction"
       ],
         "Resource": "*"
     }
