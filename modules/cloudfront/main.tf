@@ -4,8 +4,8 @@ resource "aws_cloudfront_origin_access_identity" "cloudfront_oai" {
 
 resource "aws_cloudfront_distribution" "s3_distribution" {
   origin {
-    domain_name = file(var.s3_domain_name)
-    origin_id   = file(var.s3_id)
+    domain_name = var.s3_domain_name
+    origin_id   = var.s3_id
 
 
     s3_origin_config {
@@ -26,7 +26,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   default_cache_behavior {
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
     cached_methods   = ["GET", "HEAD"]
-    target_origin_id = file(var.s3_id)
+    target_origin_id = var.s3_id
 
     forwarded_values {
       query_string = false
