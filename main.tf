@@ -66,33 +66,6 @@ module "s3" {
   policy_file = "${path.module}/templates/s3-policy.json"
 }
 
-
-###############################################################
-## lambda_function
-###############################################################
-
-module "lambda" {
-  source                         = "./modules/lambda"
-  role_arn                       = module.lambda_iam_role.arn
-  filename                       = "${path.module}/templates/lambda/lambda_code.zip"
-  function_name                  = "voca_app_lambda"
-  runtime                        = "nodejs20.x"
-  lambda_permission_statement_id = "AllowAPIGatewayInvoke"
-  api_gateway_source_arn         = "${module.api_gateway.execution_arn}/*/*"
-}
-
-###############################################################
-## lambda_layer
-###############################################################
-
-module "lambda_layer" {
-  source     = "./modules/lambda_layer"
-  layer_name = "voca_app_lambda_layer"
-  filename   = "${path.module}/templates/lambda/lambda_layer.zip"
-
-  compatible_runtimes = ["nodejs20.x"]
-}
-
 ###############################################################
 ## parameter_store
 ###############################################################
@@ -102,30 +75,6 @@ module "aws_ssm_parameter" {
   name   = "parameter"
   type   = "String"
   value  = "value"
-}
-
-###############################################################
-## api_gateway
-###############################################################
-
-module "api_gateway" {
-  source = "./modules/api_gateway"
-
-  name                   = "voca-app-api-gateway"
-  protocol_type          = "HTTP"
-  stage_name             = "prod"
-  integration_type       = "AWS_PROXY"
-  payload_format_version = "2.0"
-
-  method_lambda_map = {
-    "GET /test" = {
-      lambda_invoke_arn = module.lambda.invoke_arn
-      lambda_name       = module.lambda.name
-    }
-    # "POST /..." = {
-
-    # }...
-  }
 }
 
 ###############################################################
