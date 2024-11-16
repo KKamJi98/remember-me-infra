@@ -134,6 +134,6 @@ module "api_gateway" {
 
 module "cloudfront" {
   source         = "./modules/cloudfront"
-  s3_domain_name = module.s3.website_endpoint
+  s3_domain_name = module.s3.domain_name
   s3_id          = module.s3.id
 }
