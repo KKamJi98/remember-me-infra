@@ -46,6 +46,7 @@
                 "iam:DetachUserPolicy",
                 "iam:AttachRolePolicy",
                 "iam:DetachRolePolicy",
+                "iam:PutGroupPolicy",
                 "iam:TagRole",
                 "iam:PassRole",
                 "iam:List*",
