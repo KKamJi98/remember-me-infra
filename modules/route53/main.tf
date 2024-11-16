@@ -27,7 +27,7 @@ resource "aws_acm_certificate_validation" "cert" {
 
 resource "aws_route53_record" "this" {
   zone_id = data.aws_route53_zone.example.id
-  name    = var.domain_name
+  name    = "rememberme.${var.domain_name}"
 
   type = "A"
 

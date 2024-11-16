@@ -94,7 +94,7 @@ module "cloudfront" {
 
 module "route53" {
   source             = "./modules/route53"
-  domain_name        = "rememberme.kkamji.net"
+  domain_name        = "kkamji.net"
   cdn_domain_name    = module.cloudfront.domain_name
   cdn_hosted_zone_id = module.cloudfront.hosted_zone_id
 }
