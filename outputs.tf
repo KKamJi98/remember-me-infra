@@ -69,3 +69,19 @@ output "cdn_arn" {
 output "domain_name" {
   value = module.cloudfront.domain_name
 }
+
+###############################################################
+## route53
+###############################################################
+
+output "acm_arn" {
+  value = module.route53.acm_arn
+}
+
+output "route53_alias" {
+  value = module.route53.route53_alias
+}
+
+output "route53_name" {
+  value = module.route53.route53_name
+}

@@ -7,3 +7,8 @@ variable "s3_id" {
   type        = string
   description = "Id of the S3"
 }
+
+variable "acm_arn" {
+  type        = string
+  description = "The ARN of the ACM"
+}
