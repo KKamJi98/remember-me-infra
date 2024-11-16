@@ -93,6 +93,10 @@ output "api_gateway_api_endpoints" {
 output "api_gateway_arn" {
   value = module.api_gateway.arn
 }
+  
+output "api_gateway_execution_arn" {
+  value = module.api_gateway.execution_arn
+}
 
 ###############################################################
 ## cloudfront
