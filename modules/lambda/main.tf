@@ -7,7 +7,7 @@ resource "aws_lambda_function" "this" {
   runtime       = var.runtime
 }
 
-resource "aws_lambda_permission" "apigw" {
+resource "aws_lambda_permission" "this" {
   statement_id  = var.lambda_permission_statement_id
   action        = var.lambda_permission_action
   function_name = aws_lambda_function.this.function_name
