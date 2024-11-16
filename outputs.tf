@@ -55,6 +55,22 @@ output "S3_url" {
 }
 
 ###############################################################
+## lambda
+###############################################################
+
+output "lambda_arn" {
+  value = module.lambda.arn
+}
+
+output "lambda_name" {
+  value = module.lambda.name
+}
+
+output "lambda_invoke_arn" {
+  value = module.lambda.invoke_arn
+}
+
+###############################################################
 ## lambda_layer
 ###############################################################
 
