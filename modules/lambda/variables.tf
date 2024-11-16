@@ -29,3 +29,25 @@ variable "handler" {
   description = "Handler of the lambda function"
   default     = "index.handler"
 }
+
+variable "lambda_permission_statement_id" {
+  type        = string
+  description = "Statement ID of the lambda permission"
+}
+
+variable "lambda_permission_action" {
+  type        = string
+  description = "Action of the lambda permission"
+  default     = "lambda:InvokeFunction"
+}
+
+variable "lambda_permission_principal" {
+  type        = string
+  description = "Principal of the lambda permission"
+  default     = "apigateway.amazonaws.com"
+}
+
+variable "api_gateway_source_arn" {
+  type        = string
+  description = "ARN of the API Gateway to be used by the lambda function"
+}
