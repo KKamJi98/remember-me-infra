@@ -117,8 +117,8 @@ module "api_gateway" {
 
   method_lambda_map = {
     "GET /test/" = {
-      lambda_arn  = module.lambda.arn
-      lambda_name = module.lambda.name
+      lambda_invoke_arn = module.lambda.invoke_arn
+      lambda_name       = module.lambda.name
     }
     # "POST /..." = {
 

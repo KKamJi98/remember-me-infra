@@ -16,8 +16,8 @@ variable "stage_name" {
 
 variable "method_lambda_map" {
   type = map(object({
-    lambda_arn  = string
-    lambda_name = string
+    lambda_invoke_arn = string
+    lambda_name       = string
   }))
   description = "The map of method and lambda"
 }
