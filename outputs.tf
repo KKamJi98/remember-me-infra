@@ -54,6 +54,10 @@ output "S3_url" {
   value = module.s3.website_endpoint
 }
 
+output "S3_name" {
+  value = module.s3.bucket_name
+}
+
 ###############################################################
 ## lambda
 ###############################################################
@@ -88,4 +92,16 @@ output "api_gateway_api_endpoints" {
 
 output "api_gateway_arn" {
   value = module.api_gateway.arn
+}
+
+###############################################################
+## cloudfront
+###############################################################
+
+output "cdn_arn" {
+  value = module.cloudfront.cdn_arn
+}
+
+output "domain_name" {
+  value = module.cloudfront.domain_name
 }

@@ -12,3 +12,8 @@ output "website_endpoint" {
   description = "The website endpoint for the S3 bucket."
   value       = aws_s3_bucket_website_configuration.website-config.website_endpoint
 }
+
+output "id" {
+  description = "The Id of the S3 bucket."
+  value       = aws_s3_bucket.deploy_bucket.id
+}
