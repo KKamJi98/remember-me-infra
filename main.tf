@@ -85,4 +85,16 @@ module "cloudfront" {
   source         = "./modules/cloudfront"
   s3_domain_name = module.s3.domain_name
   s3_id          = module.s3.id
+  acm_arn        = module.route53.acm_arn
+}
+
+###############################################################
+## route53
+###############################################################
+
+module "route53" {
+  source             = "./modules/route53"
+  domain_name        = "kkamji.net"
+  cdn_domain_name    = module.cloudfront.domain_name
+  cdn_hosted_zone_id = module.cloudfront.hosted_zone_id
 }
