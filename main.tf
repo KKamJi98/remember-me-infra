@@ -65,3 +65,14 @@ module "s3" {
   name        = "english-voca-deploy"
   policy_file = "${path.module}/templates/s3-policy.json"
 }
+
+###############################################################
+## aws_ssm_parameter
+###############################################################
+
+module "aws_ssm_parameter" {
+  source = "./modules/aws_ssm_parameter"
+  name   = "parameter"
+  type   = "String"
+  value  = "value"
+}
