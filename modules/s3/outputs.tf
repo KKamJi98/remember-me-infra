@@ -17,3 +17,8 @@ output "id" {
   description = "The Id of the S3 bucket."
   value       = aws_s3_bucket.deploy_bucket.id
 }
+
+output "domain_name" {
+  description = "The Domain name of the S3 bucket."
+  value       = aws_s3_bucket.deploy_bucket.bucket_domain_name
+}
