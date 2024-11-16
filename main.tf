@@ -72,11 +72,13 @@ module "s3" {
 ###############################################################
 
 module "lambda" {
-  source        = "./modules/lambda"
-  role_arn      = module.lambda_iam_role.arn
-  filename      = "${path.module}/templates/lambda/lambda_code.zip"
-  function_name = "voca_app_lambda"
-  runtime       = "nodejs20.x"
+  source                         = "./modules/lambda"
+  role_arn                       = module.lambda_iam_role.arn
+  filename                       = "${path.module}/templates/lambda/lambda_code.zip"
+  function_name                  = "voca_app_lambda"
+  runtime                        = "nodejs20.x"
+  lambda_permission_statement_id = "AllowAPIGatewayInvoke"
+  api_gateway_source_arn         = "${module.api_gateway.execution_arn}/*/*"
 }
 
 ###############################################################

@@ -6,3 +6,11 @@ resource "aws_lambda_function" "this" {
   handler       = var.handler
   runtime       = var.runtime
 }
+
+resource "aws_lambda_permission" "apigw" {
+  statement_id  = var.lambda_permission_statement_id
+  action        = var.lambda_permission_action
+  function_name = aws_lambda_function.this.function_name
+  principal     = var.lambda_permission_principal
+  source_arn    = var.api_gateway_source_arn
+}
