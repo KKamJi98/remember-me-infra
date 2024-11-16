@@ -78,7 +78,7 @@ module "lambda" {
   function_name = "voca_app_lambda"
   runtime       = "nodejs20.x"
 }
-  
+
 ###############################################################
 ## lambda_layer
 ###############################################################
@@ -90,9 +90,9 @@ module "lambda_layer" {
 
   compatible_runtimes = ["nodejs20.x"]
 }
-  
+
 ###############################################################
-## aws_ssm_parameter
+## parameter_store
 ###############################################################
 
 module "aws_ssm_parameter" {
@@ -100,4 +100,28 @@ module "aws_ssm_parameter" {
   name   = "parameter"
   type   = "String"
   value  = "value"
+}
+
+###############################################################
+## api_gateway
+###############################################################
+
+module "api_gateway" {
+  source = "./modules/api_gateway"
+
+  name                   = "voca-app-api-gateway"
+  protocol_type          = "HTTP"
+  stage_name             = "prod"
+  integration_type       = "AWS_PROXY"
+  payload_format_version = "2.0"
+
+  method_lambda_map = {
+    "GET /test/" = {
+      lambda_arn  = module.lambda.arn
+      lambda_name = module.lambda.name
+    }
+    # "POST /..." = {
+
+    # }...
+  }
 }
