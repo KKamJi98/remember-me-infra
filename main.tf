@@ -65,3 +65,15 @@ module "s3" {
   name        = "english-voca-deploy"
   policy_file = "${path.module}/templates/s3-policy.json"
 }
+
+###############################################################
+## lambda_layer
+###############################################################
+
+module "lambda_layer" {
+  source     = "./modules/lambda_layer"
+  layer_name = "voca_app_lambda_layer"
+  filename   = "${path.module}/templates/lambda/lambda_layer.zip"
+
+  compatible_runtimes = ["nodejs20.x"]
+}
