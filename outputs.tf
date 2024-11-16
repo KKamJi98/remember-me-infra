@@ -53,3 +53,11 @@ output "S3_arn" {
 output "S3_url" {
   value = module.s3.website_endpoint
 }
+
+###############################################################
+## lambda_layer
+###############################################################
+
+output "lambda_layer_arn" {
+  value = module.lambda_layer.layer_arn
+}

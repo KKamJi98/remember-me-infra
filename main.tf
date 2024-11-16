@@ -77,3 +77,15 @@ module "lambda" {
   function_name = "voca_app_lambda"
   runtime       = "nodejs20.x"
 }
+  
+###############################################################
+## lambda_layer
+###############################################################
+
+module "lambda_layer" {
+  source     = "./modules/lambda_layer"
+  layer_name = "voca_app_lambda_layer"
+  filename   = "${path.module}/templates/lambda/lambda_layer.zip"
+
+  compatible_runtimes = ["nodejs20.x"]
+}
