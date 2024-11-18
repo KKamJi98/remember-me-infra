@@ -2,6 +2,11 @@ provider "aws" {
   region = var.region
 }
 
+provider "aws" {
+  alias  = "us_east_1"
+  region = "us-east-1"
+}
+
 ###############################################################
 ## iam_group_membership
 ###############################################################
@@ -83,7 +88,7 @@ module "cloudfront" {
   s3_id          = module.s3.id
   acm_arn        = module.route53.acm_arn
 }
-    
+
 module "parameter_store_cloudfront_distribution_id" {
   source = "./modules/aws_ssm_parameter"
   name   = "/remember-me/cloudfront-distribution-id"
@@ -100,4 +105,8 @@ module "route53" {
   domain_name        = "kkamji.net"
   cdn_domain_name    = module.cloudfront.domain_name
   cdn_hosted_zone_id = module.cloudfront.hosted_zone_id
+
+  providers = {
+    aws = aws.us_east_1
+  }
 }
