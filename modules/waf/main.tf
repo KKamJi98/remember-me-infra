@@ -1,9 +1,20 @@
+terraform {
+  required_version = ">= 1.9.8"
+
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = ">= 5.75"
+    }
+  }
+}
+
 resource "aws_wafv2_ip_set" "white_list_ip_list" {
   name               = "test-name"
   description        = "white ip set"
   scope              = "CLOUDFRONT"
   ip_address_version = "IPV4"
-  addresses          = ["112.214.32.67"] # 조건에서 제외시킬 ip 추가
+  addresses          = ["112.214.32.67/32"] # 조건에서 제외시킬 ip 추가
 }
 
 resource "aws_wafv2_web_acl" "example" {
