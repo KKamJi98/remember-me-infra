@@ -15,7 +15,7 @@ data "aws_route53_zone" "example" {
 }
 
 resource "aws_acm_certificate" "example" {
-  domain_name       = var.domain_name
+  domain_name       = "*.${var.domain_name}"
   validation_method = "DNS"
   lifecycle {
     create_before_destroy = true
