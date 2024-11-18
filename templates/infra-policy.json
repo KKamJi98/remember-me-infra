@@ -15,6 +15,7 @@
                 "route53:*",
                 "lambda:*",
                 "waf:*",
+                "wafv2:*",
                 "vpc:*",
                 "acm:*",
                 "budgets:*",
