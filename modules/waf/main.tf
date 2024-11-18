@@ -37,7 +37,7 @@ resource "aws_wafv2_web_acl" "example" {
 
     visibility_config {
       cloudwatch_metrics_enabled = true
-      metric_name                = "overrated metrics"
+      metric_name                = "overrated-metrics"
       sampled_requests_enabled   = false
     }
   }
