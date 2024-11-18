@@ -118,7 +118,7 @@ module "route53" {
 module "api_gateway" {
   source = "./modules/api_gateway"
 
-  name                   = "voca-app-api-gateway5"
+  name                   = "voca-app-api-gateway"
   protocol_type          = "HTTP"
   stage_name             = "prod"
   integration_type       = "AWS_PROXY"
