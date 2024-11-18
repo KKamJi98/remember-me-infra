@@ -3,7 +3,7 @@ resource "aws_lambda_function" "this" {
   role          = var.role_arn
   filename      = var.filename
   layers        = var.layer_arns
-  handler       = var.handler
+  handler       = "${var.function_name}.handler"
   runtime       = var.runtime
 }
 
