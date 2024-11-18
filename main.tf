@@ -118,7 +118,7 @@ module "route53" {
 module "api_gateway" {
   source = "./modules/api_gateway"
 
-  name                   = "voca-app-api-gateway5"
+  name                   = "voca-app-api-gateway"
   protocol_type          = "HTTP"
   stage_name             = "prod"
   integration_type       = "AWS_PROXY"
@@ -164,6 +164,13 @@ module "api_gateway" {
   }
 }
 
+module "parameter_store_api_gateway_endpoint" {
+  source = "./modules/aws_ssm_parameter"
+  name   = "/remember-me/api_gateway_endpoint_invoke_url"
+  type   = "String"
+  value  = module.api_gateway.invoke_url
+}
+
 ###############################################################
 ## lambda_functions
 ###############################################################
@@ -178,6 +185,13 @@ module "get_user" {
   api_gateway_source_arn         = "${module.api_gateway.execution_arn}/*/*"
 }
 
+module "parameter_store_lambda_function_name_get_user" {
+  source = "./modules/aws_ssm_parameter"
+  name   = "/remember-me/lambda_function_name/get_user"
+  type   = "String"
+  value  = module.get_user.name
+}
+
 module "get_lists" {
   source                         = "./modules/lambda"
   role_arn                       = module.lambda_iam_role.arn
@@ -186,6 +200,13 @@ module "get_lists" {
   runtime                        = "nodejs20.x"
   lambda_permission_statement_id = "AllowAPIGatewayInvoke"
   api_gateway_source_arn         = "${module.api_gateway.execution_arn}/*/*"
+}
+
+module "parameter_store_lambda_function_name_get_lists" {
+  source = "./modules/aws_ssm_parameter"
+  name   = "/remember-me/lambda_function_name/get_lists"
+  type   = "String"
+  value  = module.get_lists.name
 }
 
 module "post_list" {
@@ -198,6 +219,13 @@ module "post_list" {
   api_gateway_source_arn         = "${module.api_gateway.execution_arn}/*/*"
 }
 
+module "parameter_store_lambda_function_name_post_lists" {
+  source = "./modules/aws_ssm_parameter"
+  name   = "/remember-me/lambda_function_name/post_lists"
+  type   = "String"
+  value  = module.post_list.name
+}
+
 module "post_words" {
   source                         = "./modules/lambda"
   role_arn                       = module.lambda_iam_role.arn
@@ -206,6 +234,13 @@ module "post_words" {
   runtime                        = "nodejs20.x"
   lambda_permission_statement_id = "AllowAPIGatewayInvoke"
   api_gateway_source_arn         = "${module.api_gateway.execution_arn}/*/*"
+}
+
+module "parameter_store_lambda_function_name_post_words" {
+  source = "./modules/aws_ssm_parameter"
+  name   = "/remember-me/lambda_function_name/post_words"
+  type   = "String"
+  value  = module.post_words.name
 }
 
 module "post_word" {
@@ -218,6 +253,13 @@ module "post_word" {
   api_gateway_source_arn         = "${module.api_gateway.execution_arn}/*/*"
 }
 
+module "parameter_store_lambda_function_name_post_word" {
+  source = "./modules/aws_ssm_parameter"
+  name   = "/remember-me/lambda_function_name/post_word"
+  type   = "String"
+  value  = module.post_word.name
+}
+
 module "get_incorrect_lists" {
   source                         = "./modules/lambda"
   role_arn                       = module.lambda_iam_role.arn
@@ -226,6 +268,13 @@ module "get_incorrect_lists" {
   runtime                        = "nodejs20.x"
   lambda_permission_statement_id = "AllowAPIGatewayInvoke"
   api_gateway_source_arn         = "${module.api_gateway.execution_arn}/*/*"
+}
+
+module "parameter_store_lambda_function_name_get_incorrect_lists" {
+  source = "./modules/aws_ssm_parameter"
+  name   = "/remember-me/lambda_function_name/get_incorrect_lists"
+  type   = "String"
+  value  = module.get_incorrect_lists.name
 }
 
 module "post_incorrect_list" {
@@ -238,6 +287,13 @@ module "post_incorrect_list" {
   api_gateway_source_arn         = "${module.api_gateway.execution_arn}/*/*"
 }
 
+module "parameter_store_lambda_function_name_post_incorrect_list" {
+  source = "./modules/aws_ssm_parameter"
+  name   = "/remember-me/lambda_function_name/post_incorrect_list"
+  type   = "String"
+  value  = module.post_incorrect_list.name
+}
+
 module "post_incorrect_words" {
   source                         = "./modules/lambda"
   role_arn                       = module.lambda_iam_role.arn
@@ -246,6 +302,13 @@ module "post_incorrect_words" {
   runtime                        = "nodejs20.x"
   lambda_permission_statement_id = "AllowAPIGatewayInvoke"
   api_gateway_source_arn         = "${module.api_gateway.execution_arn}/*/*"
+}
+
+module "parameter_store_lambda_function_name_post_incorrect_words" {
+  source = "./modules/aws_ssm_parameter"
+  name   = "/remember-me/lambda_function_name/post_incorrect_words"
+  type   = "String"
+  value  = module.post_incorrect_words.name
 }
 
 module "post_incorrect_word" {
@@ -258,6 +321,12 @@ module "post_incorrect_word" {
   api_gateway_source_arn         = "${module.api_gateway.execution_arn}/*/*"
 }
 
+module "parameter_store_lambda_function_name_post_incorrect_word" {
+  source = "./modules/aws_ssm_parameter"
+  name   = "/remember-me/lambda_function_name/post_incorrect_word"
+  type   = "String"
+  value  = module.post_incorrect_word.name
+}
 ###############################################################
 ## lambda_layer
 ###############################################################
