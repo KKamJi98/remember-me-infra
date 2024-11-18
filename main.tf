@@ -138,40 +138,40 @@ module "api_gateway" {
 
   method_lambda_map = {
     "GET /user" = {
-      lambda_invoke_arn = module.get_user.invoke_arn
-      lambda_name       = module.get_user.name
+      lambda_invoke_arn = module.lambda_get_user.invoke_arn
+      lambda_name       = module.lambda_get_user.name
     },
     "GET /lists" = {
-      lambda_invoke_arn = module.get_lists.invoke_arn
-      lambda_name       = module.get_lists.name
+      lambda_invoke_arn = module.lambda_get_lists.invoke_arn
+      lambda_name       = module.lambda_get_lists.name
     },
     "POST /list" = {
-      lambda_invoke_arn = module.post_list.invoke_arn
-      lambda_name       = module.post_list.name
+      lambda_invoke_arn = module.lambda_post_list.invoke_arn
+      lambda_name       = module.lambda_post_list.name
     },
     "POST /words" = {
-      lambda_invoke_arn = module.post_words.invoke_arn
-      lambda_name       = module.post_words.name
+      lambda_invoke_arn = module.lambda_post_words.invoke_arn
+      lambda_name       = module.lambda_post_words.name
     },
     "POST /word" = {
-      lambda_invoke_arn = module.post_word.invoke_arn
-      lambda_name       = module.post_word.name
+      lambda_invoke_arn = module.lambda_post_word.invoke_arn
+      lambda_name       = module.lambda_post_word.name
     },
     "GET /incorrectLists" = {
-      lambda_invoke_arn = module.get_incorrect_lists.invoke_arn
-      lambda_name       = module.get_incorrect_lists.name
+      lambda_invoke_arn = module.lambda_get_incorrect_lists.invoke_arn
+      lambda_name       = module.lambda_get_incorrect_lists.name
     },
     "POST /incorrectList" = {
-      lambda_invoke_arn = module.post_incorrect_list.invoke_arn
-      lambda_name       = module.post_incorrect_list.name
+      lambda_invoke_arn = module.lambda_post_incorrect_list.invoke_arn
+      lambda_name       = module.lambda_post_incorrect_list.name
     },
     "POST /incorrectWords" = {
-      lambda_invoke_arn = module.post_incorrect_words.invoke_arn
-      lambda_name       = module.post_incorrect_words.name
+      lambda_invoke_arn = module.lambda_post_incorrect_words.invoke_arn
+      lambda_name       = module.lambda_post_incorrect_words.name
     },
     "POST /incorrectWord" = {
-      lambda_invoke_arn = module.post_incorrect_word.invoke_arn
-      lambda_name       = module.post_incorrect_word.name
+      lambda_invoke_arn = module.lambda_post_incorrect_word.invoke_arn
+      lambda_name       = module.lambda_post_incorrect_word.name
     }
   }
 }
@@ -187,158 +187,96 @@ module "parameter_store_api_gateway_endpoint" {
 ## lambda_functions
 ###############################################################
 
-module "get_user" {
+module "lambda_get_user" {
   source                         = "./modules/lambda"
   role_arn                       = module.lambda_iam_role.arn
   filename                       = "${path.module}/templates/lambda/lambda_code.zip"
-  function_name                  = "get_user"
+  function_name                  = "getUser"
   runtime                        = "nodejs20.x"
   lambda_permission_statement_id = "AllowAPIGatewayInvoke"
   api_gateway_source_arn         = "${module.api_gateway.execution_arn}/*/*"
 }
 
-module "parameter_store_lambda_function_name_get_user" {
-  source = "./modules/aws_ssm_parameter"
-  name   = "/remember-me/lambda_function_name/get_user"
-  type   = "String"
-  value  = module.get_user.name
-}
-
-module "get_lists" {
+module "lambda_get_lists" {
   source                         = "./modules/lambda"
   role_arn                       = module.lambda_iam_role.arn
   filename                       = "${path.module}/templates/lambda/lambda_code.zip"
-  function_name                  = "get_lists"
+  function_name                  = "getLists"
   runtime                        = "nodejs20.x"
   lambda_permission_statement_id = "AllowAPIGatewayInvoke"
   api_gateway_source_arn         = "${module.api_gateway.execution_arn}/*/*"
 }
 
-module "parameter_store_lambda_function_name_get_lists" {
-  source = "./modules/aws_ssm_parameter"
-  name   = "/remember-me/lambda_function_name/get_lists"
-  type   = "String"
-  value  = module.get_lists.name
-}
-
-module "post_list" {
+module "lambda_post_list" {
   source                         = "./modules/lambda"
   role_arn                       = module.lambda_iam_role.arn
   filename                       = "${path.module}/templates/lambda/lambda_code.zip"
-  function_name                  = "post_list"
+  function_name                  = "postList"
   runtime                        = "nodejs20.x"
   lambda_permission_statement_id = "AllowAPIGatewayInvoke"
   api_gateway_source_arn         = "${module.api_gateway.execution_arn}/*/*"
 }
 
-module "parameter_store_lambda_function_name_post_lists" {
-  source = "./modules/aws_ssm_parameter"
-  name   = "/remember-me/lambda_function_name/post_lists"
-  type   = "String"
-  value  = module.post_list.name
-}
-
-module "post_words" {
+module "lambda_post_words" {
   source                         = "./modules/lambda"
   role_arn                       = module.lambda_iam_role.arn
   filename                       = "${path.module}/templates/lambda/lambda_code.zip"
-  function_name                  = "post_words"
+  function_name                  = "postWords"
   runtime                        = "nodejs20.x"
   lambda_permission_statement_id = "AllowAPIGatewayInvoke"
   api_gateway_source_arn         = "${module.api_gateway.execution_arn}/*/*"
 }
 
-module "parameter_store_lambda_function_name_post_words" {
-  source = "./modules/aws_ssm_parameter"
-  name   = "/remember-me/lambda_function_name/post_words"
-  type   = "String"
-  value  = module.post_words.name
-}
-
-module "post_word" {
+module "lambda_post_word" {
   source                         = "./modules/lambda"
   role_arn                       = module.lambda_iam_role.arn
   filename                       = "${path.module}/templates/lambda/lambda_code.zip"
-  function_name                  = "post_word"
+  function_name                  = "postWord"
   runtime                        = "nodejs20.x"
   lambda_permission_statement_id = "AllowAPIGatewayInvoke"
   api_gateway_source_arn         = "${module.api_gateway.execution_arn}/*/*"
 }
 
-module "parameter_store_lambda_function_name_post_word" {
-  source = "./modules/aws_ssm_parameter"
-  name   = "/remember-me/lambda_function_name/post_word"
-  type   = "String"
-  value  = module.post_word.name
-}
-
-module "get_incorrect_lists" {
+module "lambda_get_incorrect_lists" {
   source                         = "./modules/lambda"
   role_arn                       = module.lambda_iam_role.arn
   filename                       = "${path.module}/templates/lambda/lambda_code.zip"
-  function_name                  = "get_incorrect_lists"
+  function_name                  = "getIncorrectLists"
   runtime                        = "nodejs20.x"
   lambda_permission_statement_id = "AllowAPIGatewayInvoke"
   api_gateway_source_arn         = "${module.api_gateway.execution_arn}/*/*"
 }
 
-module "parameter_store_lambda_function_name_get_incorrect_lists" {
-  source = "./modules/aws_ssm_parameter"
-  name   = "/remember-me/lambda_function_name/get_incorrect_lists"
-  type   = "String"
-  value  = module.get_incorrect_lists.name
-}
-
-module "post_incorrect_list" {
+module "lambda_post_incorrect_list" {
   source                         = "./modules/lambda"
   role_arn                       = module.lambda_iam_role.arn
   filename                       = "${path.module}/templates/lambda/lambda_code.zip"
-  function_name                  = "post_incorrect_list"
+  function_name                  = "postIncorrectList"
   runtime                        = "nodejs20.x"
   lambda_permission_statement_id = "AllowAPIGatewayInvoke"
   api_gateway_source_arn         = "${module.api_gateway.execution_arn}/*/*"
 }
 
-module "parameter_store_lambda_function_name_post_incorrect_list" {
-  source = "./modules/aws_ssm_parameter"
-  name   = "/remember-me/lambda_function_name/post_incorrect_list"
-  type   = "String"
-  value  = module.post_incorrect_list.name
-}
-
-module "post_incorrect_words" {
+module "lambda_post_incorrect_words" {
   source                         = "./modules/lambda"
   role_arn                       = module.lambda_iam_role.arn
   filename                       = "${path.module}/templates/lambda/lambda_code.zip"
-  function_name                  = "post_incorrect_words"
+  function_name                  = "postIncorrectWords"
   runtime                        = "nodejs20.x"
   lambda_permission_statement_id = "AllowAPIGatewayInvoke"
   api_gateway_source_arn         = "${module.api_gateway.execution_arn}/*/*"
 }
 
-module "parameter_store_lambda_function_name_post_incorrect_words" {
-  source = "./modules/aws_ssm_parameter"
-  name   = "/remember-me/lambda_function_name/post_incorrect_words"
-  type   = "String"
-  value  = module.post_incorrect_words.name
-}
-
-module "post_incorrect_word" {
+module "lambda_post_incorrect_word" {
   source                         = "./modules/lambda"
   role_arn                       = module.lambda_iam_role.arn
   filename                       = "${path.module}/templates/lambda/lambda_code.zip"
-  function_name                  = "post_incorrect_word"
+  function_name                  = "postIncorrectWord"
   runtime                        = "nodejs20.x"
   lambda_permission_statement_id = "AllowAPIGatewayInvoke"
   api_gateway_source_arn         = "${module.api_gateway.execution_arn}/*/*"
 }
 
-module "parameter_store_lambda_function_name_post_incorrect_word" {
-  source = "./modules/aws_ssm_parameter"
-  name   = "/remember-me/lambda_function_name/post_incorrect_word"
-  type   = "String"
-  value  = module.post_incorrect_word.name
-}
 ###############################################################
 ## lambda_layer
 ###############################################################
