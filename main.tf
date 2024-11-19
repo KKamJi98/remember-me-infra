@@ -55,10 +55,16 @@ module "lambda_iam_role" {
 ## iam_role_policy_attachment
 ###############################################################
 
-module "lambda_role_policy_attachment" {
+module "lambda_role_policy_attachment_inline" {
   source     = "./modules/iam_role_policy_attachment"
   role_name  = module.lambda_iam_role.name
   policy_arn = module.lambda_iam_policy.arn
+}
+
+module "lambda_role_policy_attachment_log" {
+  source     = "./modules/iam_role_policy_attachment"
+  role_name  = module.lambda_iam_role.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 }
 
 ###############################################################
