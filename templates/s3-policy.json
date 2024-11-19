@@ -9,7 +9,7 @@
         "Service" : "cloudfront.amazonaws.com"
       },
       "Action" : "s3:GetObject",
-      "Resource" : "${BUCKET_ARN}/*",
+      "Resource" : "$arn:aws:s3:::{BUCKET_NAME}/*",
       "Condition" : {
         "StringEquals" : {
           "AWS:SourceArn" : "${CDN_ARN}"
