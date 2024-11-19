@@ -2,11 +2,19 @@ resource "aws_cloudfront_origin_access_identity" "example" {
   comment = "cloudfront_origin_access_identity comment"
 }
 
+resource "aws_cloudfront_origin_access_control" "example" {
+  name                              = "s3-cloudfront-oac"
+  description                       = "Grant cloudfront access to s3 bucket"
+  origin_access_control_origin_type = "s3"
+  signing_behavior                  = "always"
+  signing_protocol                  = "sigv4"
+}
+
 resource "aws_cloudfront_distribution" "example" {
   origin {
-    domain_name = var.s3_domain_name
-    origin_id   = var.s3_id
-
+    domain_name              = var.s3_domain_name
+    origin_access_control_id = aws_cloudfront_origin_access_control.example.id
+    origin_id                = var.s3_id
 
     s3_origin_config {
       origin_access_identity = aws_cloudfront_origin_access_identity.example.cloudfront_access_identity_path

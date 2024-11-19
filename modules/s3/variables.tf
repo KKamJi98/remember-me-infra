@@ -7,3 +7,8 @@ variable "policy_file" {
   type        = string
   description = "Path to JSON file for the S3 Policy"
 }
+
+variable "cdn_arn" {
+  type        = string
+  description = "ARN of the Cloudfront"
+}

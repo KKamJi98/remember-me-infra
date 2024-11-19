@@ -74,6 +74,7 @@ module "lambda_role_policy_attachment_log" {
 module "s3" {
   source      = "./modules/s3"
   name        = "english-voca-deploy"
+  cdn_arn     = module.cloudfront.cdn_arn
   policy_file = "${path.module}/templates/s3-policy.json"
 }
 
