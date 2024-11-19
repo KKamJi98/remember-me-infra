@@ -30,14 +30,15 @@ resource "aws_s3_bucket_acl" "example" {
 }
 
 locals {
-  policy_content        = file(var.policy_file)
-  replaced_policy       = replace(local.policy_content, "BUCKET_ARN", aws_s3_bucket.example.arn)
-  replaced_policy_final = replace(local.policy_content, "CDN_ARN", var.cdn_arn)
+  policy_content = templatefile("${path.root}/templates/s3-policy.json", {
+    BUCKET_ARN = aws_s3_bucket.example.bucket
+    CDN_ARN    = var.cdn_arn
+  })
 }
 
 resource "aws_s3_bucket_policy" "example" {
   bucket = aws_s3_bucket.example.id
-  policy = local.replaced_policy_final
+  policy = local.policy_content
 
   depends_on = [aws_s3_bucket_acl.example]
 }
