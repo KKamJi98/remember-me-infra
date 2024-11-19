@@ -94,6 +94,10 @@ module "cloudfront" {
   s3_domain_name = module.s3.domain_name
   s3_id          = module.s3.id
   acm_arn        = module.route53.acm_arn
+
+  providers = {
+    aws = aws.us_east_1
+  }
 }
 
 module "parameter_store_cloudfront_distribution_id" {
