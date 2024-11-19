@@ -31,8 +31,8 @@ resource "aws_s3_bucket_acl" "example" {
 
 locals {
   policy_content = templatefile("${path.root}/templates/s3-policy.json", {
-    BUCKET_ARN = aws_s3_bucket.example.bucket
-    CDN_ARN    = var.cdn_arn
+    BUCKET_NAME = var.name
+    CDN_ARN     = var.cdn_arn
   })
 }
 
