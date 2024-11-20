@@ -94,6 +94,7 @@ module "cloudfront" {
   s3_domain_name = module.s3.domain_name
   s3_id          = module.s3.id
   acm_arn        = module.route53.acm_arn
+  cdn_alias      = "rememberme.kkamji.net"
 
   providers = {
     aws = aws.us_east_1

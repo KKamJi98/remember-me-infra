@@ -12,3 +12,8 @@ variable "acm_arn" {
   type        = string
   description = "The ARN of the ACM"
 }
+
+variable "cdn_alias" {
+  type        = string
+  description = "Alias of the Cloudfront"
+}
