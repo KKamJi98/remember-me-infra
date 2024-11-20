@@ -7,6 +7,8 @@ provider "aws" {
   region = "us-east-1"
 }
 
+data "aws_caller_identity" "current" {}
+
 ###############################################################
 ## iam_group_membership
 ###############################################################
@@ -203,10 +205,20 @@ module "parameter_store_api_gateway_endpoint" {
 ## lambda_functions
 ###############################################################
 
+module "lambda_subscription_filter" {
+  source                         = "./modules/lambda"
+  role_arn                       = module.lambda_iam_role.arn
+  filename                       = "${path.module}/templates/lambda/lambda_python_code.zip"
+  function_name                  = "subscription_filter"
+  runtime                        = "python3.12"
+  lambda_permission_statement_id = "AllowCloudWatchLogsInvoke"
+  lambda_permission_source_arn   = "arn:aws:logs:${var.region}:${data.aws_caller_identity.current.account_id}:log-group:*"
+}
+
 module "lambda_get_test" {
   source                         = "./modules/lambda"
   role_arn                       = module.lambda_iam_role.arn
-  filename                       = "${path.module}/templates/lambda/lambda_code.zip"
+  filename                       = "${path.module}/templates/lambda/lambda_nodejs_code.zip"
   function_name                  = "test"
   runtime                        = "nodejs20.x"
   lambda_permission_statement_id = "AllowAPIGatewayInvoke"
@@ -216,7 +228,7 @@ module "lambda_get_test" {
 module "lambda_get_user" {
   source                         = "./modules/lambda"
   role_arn                       = module.lambda_iam_role.arn
-  filename                       = "${path.module}/templates/lambda/lambda_code.zip"
+  filename                       = "${path.module}/templates/lambda/lambda_nodejs_code.zip"
   function_name                  = "getUser"
   runtime                        = "nodejs20.x"
   lambda_permission_statement_id = "AllowAPIGatewayInvoke"
@@ -226,7 +238,7 @@ module "lambda_get_user" {
 module "lambda_get_lists" {
   source                         = "./modules/lambda"
   role_arn                       = module.lambda_iam_role.arn
-  filename                       = "${path.module}/templates/lambda/lambda_code.zip"
+  filename                       = "${path.module}/templates/lambda/lambda_nodejs_code.zip"
   function_name                  = "getLists"
   runtime                        = "nodejs20.x"
   lambda_permission_statement_id = "AllowAPIGatewayInvoke"
@@ -236,7 +248,7 @@ module "lambda_get_lists" {
 module "lambda_post_list" {
   source                         = "./modules/lambda"
   role_arn                       = module.lambda_iam_role.arn
-  filename                       = "${path.module}/templates/lambda/lambda_code.zip"
+  filename                       = "${path.module}/templates/lambda/lambda_nodejs_code.zip"
   function_name                  = "postList"
   runtime                        = "nodejs20.x"
   lambda_permission_statement_id = "AllowAPIGatewayInvoke"
@@ -246,7 +258,7 @@ module "lambda_post_list" {
 module "lambda_post_words" {
   source                         = "./modules/lambda"
   role_arn                       = module.lambda_iam_role.arn
-  filename                       = "${path.module}/templates/lambda/lambda_code.zip"
+  filename                       = "${path.module}/templates/lambda/lambda_nodejs_code.zip"
   function_name                  = "postWords"
   runtime                        = "nodejs20.x"
   lambda_permission_statement_id = "AllowAPIGatewayInvoke"
@@ -256,7 +268,7 @@ module "lambda_post_words" {
 module "lambda_post_word" {
   source                         = "./modules/lambda"
   role_arn                       = module.lambda_iam_role.arn
-  filename                       = "${path.module}/templates/lambda/lambda_code.zip"
+  filename                       = "${path.module}/templates/lambda/lambda_nodejs_code.zip"
   function_name                  = "postWord"
   runtime                        = "nodejs20.x"
   lambda_permission_statement_id = "AllowAPIGatewayInvoke"
@@ -266,7 +278,7 @@ module "lambda_post_word" {
 module "lambda_get_incorrect_lists" {
   source                         = "./modules/lambda"
   role_arn                       = module.lambda_iam_role.arn
-  filename                       = "${path.module}/templates/lambda/lambda_code.zip"
+  filename                       = "${path.module}/templates/lambda/lambda_nodejs_code.zip"
   function_name                  = "getIncorrectLists"
   runtime                        = "nodejs20.x"
   lambda_permission_statement_id = "AllowAPIGatewayInvoke"
@@ -276,7 +288,7 @@ module "lambda_get_incorrect_lists" {
 module "lambda_post_incorrect_list" {
   source                         = "./modules/lambda"
   role_arn                       = module.lambda_iam_role.arn
-  filename                       = "${path.module}/templates/lambda/lambda_code.zip"
+  filename                       = "${path.module}/templates/lambda/lambda_nodejs_code.zip"
   function_name                  = "postIncorrectList"
   runtime                        = "nodejs20.x"
   lambda_permission_statement_id = "AllowAPIGatewayInvoke"
@@ -286,7 +298,7 @@ module "lambda_post_incorrect_list" {
 module "lambda_post_incorrect_words" {
   source                         = "./modules/lambda"
   role_arn                       = module.lambda_iam_role.arn
-  filename                       = "${path.module}/templates/lambda/lambda_code.zip"
+  filename                       = "${path.module}/templates/lambda/lambda_nodejs_code.zip"
   function_name                  = "postIncorrectWords"
   runtime                        = "nodejs20.x"
   lambda_permission_statement_id = "AllowAPIGatewayInvoke"
@@ -296,7 +308,7 @@ module "lambda_post_incorrect_words" {
 module "lambda_post_incorrect_word" {
   source                         = "./modules/lambda"
   role_arn                       = module.lambda_iam_role.arn
-  filename                       = "${path.module}/templates/lambda/lambda_code.zip"
+  filename                       = "${path.module}/templates/lambda/lambda_nodejs_code.zip"
   function_name                  = "postIncorrectWord"
   runtime                        = "nodejs20.x"
   lambda_permission_statement_id = "AllowAPIGatewayInvoke"
