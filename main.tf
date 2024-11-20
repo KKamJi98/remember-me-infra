@@ -148,6 +148,10 @@ module "api_gateway" {
   payload_format_version = "2.0"
 
   method_lambda_map = {
+    "GET /test" = {
+      lambda_invoke_arn = module.lambda_test.invoke_arn
+      lambda_name       = module.lambda_test.name
+    },
     "GET /user" = {
       lambda_invoke_arn = module.lambda_get_user.invoke_arn
       lambda_name       = module.lambda_get_user.name
@@ -197,6 +201,16 @@ module "parameter_store_api_gateway_endpoint" {
 ###############################################################
 ## lambda_functions
 ###############################################################
+
+module "lambda_get_test" {
+  source = "./modules/lambda"
+  role_arn = module.lambda_iam_role.arn
+  filename = "${path.module}/templates/lambda/lambda_code.zip"
+  function_name = "test"
+  runtime = "nodejs20.x"
+  lambda_permission_statement_id = "AllowAPIGatewayInvoke"
+  api_gateway_source_arn         = "${module.api_gateway.execution_arn}/*/*"
+}
 
 module "lambda_get_user" {
   source                         = "./modules/lambda"
