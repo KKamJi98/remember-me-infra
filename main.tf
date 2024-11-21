@@ -319,7 +319,7 @@ module "lambda_post_incorrect_word" {
 ## lambda_layer
 ###############################################################
 
-module "lambda_layer" {
+module "lambda_layer_nodejs" {
   source     = "./modules/lambda_layer"
   layer_name = "voca_app_lambda_layer"
   filename   = "${path.module}/templates/lambda/lambda_layer.zip"
@@ -327,9 +327,24 @@ module "lambda_layer" {
   compatible_runtimes = ["nodejs20.x"]
 }
 
-module "lambda_layer_name" {
+module "parameter_store_nodejs_lambda_layer_name" {
   source = "./modules/aws_ssm_parameter"
   name   = "/remember-me/lambda_layer_name"
   type   = "String"
-  value  = module.lambda_layer.layer_name
+  value  = module.lambda_layer_nodejs.layer_name
+}
+
+module "lambda_layer_python_subscribe_filter" {
+  source     = "./modules/lambda_layer"
+  layer_name = "python_lambda_layer"
+  filename   = "${path.module}/templates/lambda/lambda_layer.zip"
+
+  compatible_runtimes = ["python3.12"]
+}
+
+module "parameter_store_python_lambda_layer_name" {
+  source = "./modules/aws_ssm_parameter"
+  name   = "/remember-me/python_lambda_layer_name"
+  type   = "String"
+  value  = module.lambda_layer_python_subscribe_filter.layer_name
 }
