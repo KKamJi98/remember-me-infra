@@ -52,7 +52,8 @@
                 "iam:TagRole",
                 "iam:PassRole",
                 "iam:List*",
-                "iam:Get*"
+                "iam:Get*",
+                "iam:CreateServiceLinkedRole"
             ],
             "Resource": "*"
         },
