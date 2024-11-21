@@ -395,7 +395,7 @@ module "budget_alarms" {
 ###############################################################
 module "chatbot" {
   source             = "./modules/chatbot"
-  configuration_name = "aws-budget-alarm"
+  configuration_name = "aws-budget"
   iam_role_arn       = module.chatbot_iam_role.arn
   slack_channel_id   = "C080E1FQ76H"
   slack_team_id      = "T08040UPUG6"
