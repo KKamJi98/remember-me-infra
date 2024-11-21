@@ -85,3 +85,10 @@ output "route53_alias" {
 output "route53_name" {
   value = module.route53.route53_name
 }
+
+###############################################################
+## budget_alarm
+###############################################################
+output "budgets_topic_arn" {
+  value = module.budget_alarms.budget_alarms_sns_topic_arn
+}
