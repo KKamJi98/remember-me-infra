@@ -5,6 +5,10 @@ resource "aws_lambda_function" "this" {
   layers        = var.layer_arns
   handler       = "${var.function_name}.handler"
   runtime       = var.runtime
+  
+  lifecycle {
+    ignore_changes = [layers]
+  }
 }
 
 resource "aws_lambda_permission" "this" {
