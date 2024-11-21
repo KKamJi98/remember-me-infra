@@ -23,7 +23,8 @@
                 "ssm:*",
                 "ce:*",
                 "servicecatalog:*",
-                "chatbot:CreateSlackChannelConfiguration"
+                "chatbot:CreateSlackChannelConfiguration",
+                "chatbot:DescribeSlackChannelConfigurations"
             ],
             "Resource": "*"
         },
