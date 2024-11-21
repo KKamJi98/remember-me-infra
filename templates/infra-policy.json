@@ -24,7 +24,8 @@
                 "ce:*",
                 "servicecatalog:*",
                 "chatbot:CreateSlackChannelConfiguration",
-                "chatbot:DescribeSlackChannelConfigurations"
+                "chatbot:DescribeSlackChannelConfigurations",
+                "chatbot:ListTagsForResource"
             ],
             "Resource": "*"
         },
