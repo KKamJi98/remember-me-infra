@@ -47,7 +47,7 @@ variable "lambda_permission_principal" {
   default     = "apigateway.amazonaws.com"
 }
 
-variable "api_gateway_source_arn" {
+variable "lambda_permission_source_arn" {
   type        = string
-  description = "ARN of the API Gateway to be used by the lambda function"
+  description = "Source ARN of the lambda permission"
 }

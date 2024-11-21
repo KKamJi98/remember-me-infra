@@ -12,5 +12,5 @@ resource "aws_lambda_permission" "this" {
   action        = var.lambda_permission_action
   function_name = aws_lambda_function.this.function_name
   principal     = var.lambda_permission_principal
-  source_arn    = var.api_gateway_source_arn
+  source_arn    = var.lambda_permission_source_arn
 }
