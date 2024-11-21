@@ -43,6 +43,12 @@ module "lambda_iam_policy" {
   policy_file = "${path.module}/templates/lambda-policy.json"
 }
 
+module "chatbot_iam_policy" {
+  source      = "./modules/iam_policy"
+  name        = "chatbot-policy"
+  policy_file = "${path.module}/templates/chatbot-policy.json"
+}
+
 ###############################################################
 ## iam_role
 ###############################################################
@@ -51,6 +57,12 @@ module "lambda_iam_role" {
   source      = "./modules/iam_role"
   name        = "lambda-role"
   policy_file = "${path.module}/templates/lambda-assume-role-policy.json"
+}
+
+module "chatbot_iam_role" {
+  source      = "./modules/iam_role"
+  name        = "chatbot-role"
+  policy_file = "${path.module}/templates/chatbot-assume-role-policy.json"
 }
 
 ###############################################################
@@ -67,6 +79,12 @@ module "lambda_role_policy_attachment_log" {
   source     = "./modules/iam_role_policy_attachment"
   role_name  = module.lambda_iam_role.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+}
+
+module "chatbot_role_policy_attachment_inline" {
+  source     = "./modules/iam_role_policy_attachment"
+  role_name  = module.chatbot_iam_role.name
+  policy_arn = module.chatbot_iam_policy.arn
 }
 
 ###############################################################
@@ -347,4 +365,39 @@ module "parameter_store_python_lambda_layer_name" {
   name   = "/remember-me/python_lambda_layer_name"
   type   = "String"
   value  = module.lambda_layer_python_subscribe_filter.layer_name
+}
+
+###############################################################
+## budget_alarm
+###############################################################
+module "budget_alarms" {
+  source               = "./modules/budgets"
+  account_name         = "Prod"
+  account_budget_limit = 20
+  policy_file          = "${path.module}/templates/sns-topic-policy.json"
+  services = {
+    S3 = {
+      budget_limit = 5.25
+    }
+  }
+  notifications = {
+    warning = {
+      comparison_operator = "GREATER_THAN"
+      threshold           = 100
+      threshold_type      = "PERCENTAGE"
+      notification_type   = "ACTUAL"
+    }
+  }
+}
+
+###############################################################
+## chatbot
+###############################################################
+module "chatbot" {
+  source             = "./modules/chatbot"
+  configuration_name = "aws-budget-alarm"
+  iam_role_arn       = module.chatbot_iam_role.arn
+  slack_channel_id   = "C080E1FQ76H"
+  slack_team_id      = "T08040UPUG6"
+  sns_topic_arns     = module.budget_alarms.budget_alarms_sns_topic_arn
 }

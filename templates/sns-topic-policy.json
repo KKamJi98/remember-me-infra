@@ -1,0 +1,20 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AWSBudgetsSNSPublishingPermissions",
+      "Effect": "Allow",
+      "Action": [
+        "SNS:Receive",
+        "SNS:Publish"
+      ],
+      "Principal": {
+        "type": "Service",
+        "identifiers": [
+          "budgets.amazonaws.com"
+        ]
+      },
+      "Resource": "TOPIC_ARN"
+    }
+  ]
+}
