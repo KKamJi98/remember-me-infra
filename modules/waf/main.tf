@@ -91,12 +91,3 @@ resource "aws_wafv2_web_acl" "example" {
     sampled_requests_enabled   = true
   }
 }
-
-resource "aws_cloudwatch_log_group" "this" {
-  name = "aws-waf-logs"
-}
-
-resource "aws_wafv2_web_acl_logging_configuration" "this" {
-  log_destination_configs = [aws_cloudwatch_log_group.this.arn]
-  resource_arn            = aws_wafv2_web_acl.example.arn
-}
