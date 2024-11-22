@@ -24,6 +24,12 @@ variable "runtime" {
   description = "Runtime of the lambda function"
 }
 
+variable "environment_variables" {
+  type        = map(string)
+  description = "Environment variables for the lambda function"
+  default     = {}
+}
+
 variable "handler" {
   type        = string
   description = "Handler of the lambda function"
