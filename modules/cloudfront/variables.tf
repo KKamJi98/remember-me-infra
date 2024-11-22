@@ -17,3 +17,8 @@ variable "cdn_alias" {
   type        = string
   description = "Alias of the Cloudfront"
 }
+
+variable "waf_acl_arn" {
+  type        = string
+  description = "The ARN of the WAF ACL"
+}

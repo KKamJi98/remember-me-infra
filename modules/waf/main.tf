@@ -9,12 +9,44 @@ terraform {
   }
 }
 
+resource "aws_sns_topic" "waf_alarm_topic" {
+  name = "waf-alarm-topic"
+}
+
+resource "aws_sns_topic_policy" "waf_alarm_policy" {
+  arn    = aws_sns_topic.waf_alarm_topic.arn
+  policy = local.policy_content
+}
+
+locals {
+  policy_content  = file(var.policy_file)
+  replaced_policy = replace(local.policy_content, "TOPIC_ARN", aws_sns_topic.waf_alarm_topic.arn)
+}
+
+resource "aws_cloudwatch_metric_alarm" "waf_alarm" {
+  alarm_name          = "WAF-Alarm"
+  comparison_operator = "GreaterThanThreshold"
+  evaluation_periods  = 1
+  metric_name         = "BlockedRequests" # WAF의 Blocked Requests 메트릭 사용
+  namespace           = "AWS/WAFV2"
+  period              = 300 # 5분 단위 평가
+  statistic           = "Sum"
+  threshold           = 2 # 블록된 요청이 2개 이상이면 알람
+  alarm_description   = "Triggered when WAF detects more than 10 blocked requests in 5 minutes."
+  actions_enabled     = true
+  alarm_actions       = [aws_sns_topic.waf_alarm_topic.arn]
+
+  dimensions = {
+    WebACL = aws_wafv2_web_acl.example.name
+  }
+}
+
 resource "aws_wafv2_ip_set" "white_list_ip_list" {
   name               = "test-name"
   description        = "white ip set"
   scope              = "CLOUDFRONT"
   ip_address_version = "IPV4"
-  addresses          = ["112.214.32.67/32"] # 조건에서 제외시킬 ip 추가
+  addresses          = ["112.214.32.67/32", "58.29.228.105/32"] # 조건에서 제외시킬 ip 추가
 }
 
 resource "aws_wafv2_web_acl" "example" {
@@ -48,14 +80,23 @@ resource "aws_wafv2_web_acl" "example" {
 
     visibility_config {
       cloudwatch_metrics_enabled = true
-      metric_name                = "overrated-metrics"
-      sampled_requests_enabled   = false
+      metric_name                = "BlockedRequests"
+      sampled_requests_enabled   = true
     }
   }
 
   visibility_config {
     cloudwatch_metrics_enabled = true
     metric_name                = "metrics"
-    sampled_requests_enabled   = false
+    sampled_requests_enabled   = true
   }
+}
+
+resource "aws_cloudwatch_log_group" "this" {
+  name = "aws-waf-logs"
+}
+
+resource "aws_wafv2_web_acl_logging_configuration" "this" {
+  log_destination_configs = [aws_cloudwatch_log_group.this.arn]
+  resource_arn            = aws_wafv2_web_acl.example.arn
 }

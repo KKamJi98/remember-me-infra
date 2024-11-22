@@ -115,6 +115,7 @@ module "cloudfront" {
   s3_id          = module.s3.id
   acm_arn        = module.route53.acm_arn
   cdn_alias      = "rememberme.kkamji.net"
+  waf_acl_arn    = module.WAF.waf_acl_arn
 
   providers = {
     aws = aws.us_east_1
@@ -148,7 +149,8 @@ module "route53" {
 ###############################################################
 
 module "WAF" {
-  source = "./modules/waf"
+  source      = "./modules/waf"
+  policy_file = "${path.module}/templates/sns-topic-policy.json"
 
   providers = {
     aws = aws.us_east_1
@@ -422,4 +424,13 @@ module "chatbot" {
   slack_channel_id   = "C080E1FQ76H"
   slack_team_id      = "T08040UPUG6"
   sns_topic_arns     = module.budget_alarms.budget_alarms_sns_topic_arn
+}
+
+module "waf_chatbot" {
+  source             = "./modules/chatbot"
+  configuration_name = "aws-waf"
+  iam_role_arn       = module.chatbot_iam_role.arn
+  slack_channel_id   = "C082RC22724"
+  slack_team_id      = "T08040UPUG6"
+  sns_topic_arns     = module.WAF.waf_alarm_sns_topic_arn
 }

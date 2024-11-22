@@ -33,6 +33,7 @@ resource "aws_cloudfront_distribution" "example" {
   is_ipv6_enabled     = true
   comment             = "test comment"
   default_root_object = "index.html"
+  web_acl_id          = var.waf_acl_arn
 
   aliases = [var.cdn_alias]
 
