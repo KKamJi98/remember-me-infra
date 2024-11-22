@@ -51,3 +51,21 @@ variable "lambda_permission_source_arn" {
   type        = string
   description = "Source ARN of the lambda permission"
 }
+
+variable "log_retention_days" {
+  type        = number
+  description = "Number of days to retain the lambda function's logs 0, 1, 3, 5, 7, 14, 30 ..."
+  default     = 14
+}
+
+variable "log_subscription_filter_pattern" {
+  type        = string
+  description = "Filter pattern for the lambda function's log group"
+  default     = ""
+}
+
+variable "log_subscription_filter_destination_arn" {
+  type        = string
+  description = "Destination ARN for the filtered logs"
+  default     = ""
+}
