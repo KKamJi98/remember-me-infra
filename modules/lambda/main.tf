@@ -25,6 +25,7 @@ resource "aws_cloudwatch_log_group" "this" {
 }
 
 resource "aws_cloudwatch_log_subscription_filter" "this" {
+  count           = var.create_log_subscription_filter ? 1 : 0
   name            = "${var.function_name}-subscription"
   log_group_name  = aws_cloudwatch_log_group.this.name
   filter_pattern  = var.log_subscription_filter_pattern
