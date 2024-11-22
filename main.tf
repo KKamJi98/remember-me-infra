@@ -230,6 +230,7 @@ module "lambda_subscription_filter" {
   function_name                  = "subscription_filter"
   runtime                        = "python3.12"
   lambda_permission_statement_id = "AllowCloudWatchLogsInvoke"
+  create_log_subscription_filter = false
   lambda_permission_source_arn   = "arn:aws:logs:${var.region}:${data.aws_caller_identity.current.account_id}:log-group:*"
 }
 
@@ -241,6 +242,7 @@ module "lambda_get_test" {
   runtime                                 = "nodejs20.x"
   lambda_permission_statement_id          = "AllowAPIGatewayInvoke"
   lambda_permission_source_arn            = "${module.api_gateway.execution_arn}/*/*"
+  create_log_subscription_filter          = true
   log_subscription_filter_destination_arn = module.lambda_subscription_filter.arn
 }
 
@@ -252,6 +254,7 @@ module "lambda_get_user" {
   runtime                                 = "nodejs20.x"
   lambda_permission_statement_id          = "AllowAPIGatewayInvoke"
   lambda_permission_source_arn            = "${module.api_gateway.execution_arn}/*/*"
+  create_log_subscription_filter          = true
   log_subscription_filter_destination_arn = module.lambda_subscription_filter.arn
 }
 
@@ -263,6 +266,7 @@ module "lambda_get_lists" {
   runtime                                 = "nodejs20.x"
   lambda_permission_statement_id          = "AllowAPIGatewayInvoke"
   lambda_permission_source_arn            = "${module.api_gateway.execution_arn}/*/*"
+  create_log_subscription_filter          = true
   log_subscription_filter_destination_arn = module.lambda_subscription_filter.arn
 }
 
@@ -274,6 +278,7 @@ module "lambda_post_list" {
   runtime                                 = "nodejs20.x"
   lambda_permission_statement_id          = "AllowAPIGatewayInvoke"
   lambda_permission_source_arn            = "${module.api_gateway.execution_arn}/*/*"
+  create_log_subscription_filter          = true
   log_subscription_filter_destination_arn = module.lambda_subscription_filter.arn
 }
 
@@ -285,6 +290,7 @@ module "lambda_post_words" {
   runtime                                 = "nodejs20.x"
   lambda_permission_statement_id          = "AllowAPIGatewayInvoke"
   lambda_permission_source_arn            = "${module.api_gateway.execution_arn}/*/*"
+  create_log_subscription_filter          = true
   log_subscription_filter_destination_arn = module.lambda_subscription_filter.arn
 }
 
@@ -296,6 +302,7 @@ module "lambda_post_word" {
   runtime                                 = "nodejs20.x"
   lambda_permission_statement_id          = "AllowAPIGatewayInvoke"
   lambda_permission_source_arn            = "${module.api_gateway.execution_arn}/*/*"
+  create_log_subscription_filter          = true
   log_subscription_filter_destination_arn = module.lambda_subscription_filter.arn
 }
 
@@ -307,6 +314,7 @@ module "lambda_get_incorrect_lists" {
   runtime                                 = "nodejs20.x"
   lambda_permission_statement_id          = "AllowAPIGatewayInvoke"
   lambda_permission_source_arn            = "${module.api_gateway.execution_arn}/*/*"
+  create_log_subscription_filter          = true
   log_subscription_filter_destination_arn = module.lambda_subscription_filter.arn
 }
 
@@ -318,6 +326,7 @@ module "lambda_post_incorrect_list" {
   runtime                                 = "nodejs20.x"
   lambda_permission_statement_id          = "AllowAPIGatewayInvoke"
   lambda_permission_source_arn            = "${module.api_gateway.execution_arn}/*/*"
+  create_log_subscription_filter          = true
   log_subscription_filter_destination_arn = module.lambda_subscription_filter.arn
 }
 
@@ -329,6 +338,7 @@ module "lambda_post_incorrect_words" {
   runtime                                 = "nodejs20.x"
   lambda_permission_statement_id          = "AllowAPIGatewayInvoke"
   lambda_permission_source_arn            = "${module.api_gateway.execution_arn}/*/*"
+  create_log_subscription_filter          = true
   log_subscription_filter_destination_arn = module.lambda_subscription_filter.arn
 }
 
@@ -340,6 +350,7 @@ module "lambda_post_incorrect_word" {
   runtime                                 = "nodejs20.x"
   lambda_permission_statement_id          = "AllowAPIGatewayInvoke"
   lambda_permission_source_arn            = "${module.api_gateway.execution_arn}/*/*"
+  create_log_subscription_filter          = true
   log_subscription_filter_destination_arn = module.lambda_subscription_filter.arn
 }
 

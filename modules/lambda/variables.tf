@@ -69,3 +69,9 @@ variable "log_subscription_filter_destination_arn" {
   description = "Destination ARN for the filtered logs"
   default     = ""
 }
+
+variable "create_log_subscription_filter" {
+  type        = bool
+  description = "Whether to create a subscription filter for the lambda function's log group"
+  default     = false
+}
