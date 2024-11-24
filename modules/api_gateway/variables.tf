@@ -9,6 +9,36 @@ variable "protocol_type" {
   description = "The API protocol, for example HTTP or WEBSOCKETS"
 }
 
+variable "allow_headers" {
+  type        = list(string)
+  description = "The allow headers"
+  default     = ["*"]
+}
+
+variable "allow_methods" {
+  type        = list(string)
+  description = "The allow methods"
+  default     = ["*"]
+}
+
+variable "allow_origins" {
+  type        = list(string)
+  description = "The allow origins"
+  default     = ["*"]
+}
+
+variable "expose_headers" {
+  type        = list(string)
+  description = "The expose headers"
+  default     = []
+}
+
+variable "max_age" {
+  type        = number
+  description = "The maximum age in seconds"
+  default     = 3600
+}
+
 variable "stage_name" {
   type        = string
   description = "The name of the API Gateway stage"
