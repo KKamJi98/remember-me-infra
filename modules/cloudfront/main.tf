@@ -56,6 +56,13 @@ resource "aws_cloudfront_distribution" "example" {
     max_ttl                = 86400
   }
 
+  custom_error_response {
+    error_code            = 400
+    response_page_path    = "/index.html"
+    response_code         = 200
+    error_caching_min_ttl = 10
+  }
+
   price_class = "PriceClass_200"
 
   restrictions {
