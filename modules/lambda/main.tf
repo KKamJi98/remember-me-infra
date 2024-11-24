@@ -5,6 +5,8 @@ resource "aws_lambda_function" "this" {
   layers        = var.layer_arns
   handler       = "${var.function_name}.handler"
   runtime       = var.runtime
+  timeout       = var.timeout
+
   environment {
     variables = var.environment_variables
   }

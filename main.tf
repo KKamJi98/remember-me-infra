@@ -231,6 +231,7 @@ module "lambda_subscription_filter" {
   filename                       = "${path.module}/templates/lambda/lambda_python_code.zip"
   function_name                  = "subscription_filter"
   runtime                        = "python3.12"
+  timeout                        = 15
   lambda_permission_statement_id = "AllowCloudWatchLogsInvoke"
   lambda_permission_principal    = "logs.${var.region}.amazonaws.com"
   lambda_permission_source_arn   = "arn:aws:logs:${var.region}:${data.aws_caller_identity.current.account_id}:log-group:*"
