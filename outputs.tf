@@ -92,3 +92,7 @@ output "route53_name" {
 output "budgets_topic_arn" {
   value = module.budget_alarms.budget_alarms_sns_topic_arn
 }
+
+output "invoice_budgets_topic_arn" {
+  value = module.budget_alarms_invoice.budget_alarms_sns_topic_arn
+}

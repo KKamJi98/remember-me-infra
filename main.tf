@@ -400,9 +400,40 @@ module "budget_alarms" {
   account_name         = "Prod"
   account_budget_limit = 20
   policy_file          = "${path.module}/templates/sns-topic-policy.json"
+  cost_filter_name     = "Service"
   services = {
-    S3 = {
-      budget_limit = 5.25
+    CloudWatch = {
+      budget_limit = 3.00
+    }
+  }
+  notifications = {
+    warning = {
+      comparison_operator = "GREATER_THAN"
+      threshold           = 100
+      threshold_type      = "PERCENTAGE"
+      notification_type   = "ACTUAL"
+    }
+  }
+}
+
+module "budget_alarms_invoice" {
+  source               = "./modules/budgets"
+  account_name         = "Prod"
+  account_budget_limit = 20
+  policy_file          = "${path.module}/templates/sns-topic-policy.json"
+  cost_filter_name     = "InvoicingEntity"
+  services = {
+    TOTALINVOICE = {
+      budget_limit = 12.00
+    },
+    TOTALINVOICE = {
+      budget_limit = 13.00
+    },
+    TOTALINVOICE = {
+      budget_limit = 14.00
+    },
+    TOTALINVOICE = {
+      budget_limit = 15.00
     }
   }
   notifications = {
@@ -425,6 +456,15 @@ module "chatbot" {
   slack_channel_id   = "C080E1FQ76H"
   slack_team_id      = "T08040UPUG6"
   sns_topic_arns     = module.budget_alarms.budget_alarms_sns_topic_arn
+}
+
+module "invoice_chatbot" {
+  source             = "./modules/chatbot"
+  configuration_name = "aws-invoice-budget"
+  iam_role_arn       = module.chatbot_iam_role.arn
+  slack_channel_id   = "C080E1FQ76H"
+  slack_team_id      = "T08040UPUG6"
+  sns_topic_arns     = module.budget_alarms_invoice.budget_alarms_sns_topic_arn
 }
 
 module "waf_chatbot" {

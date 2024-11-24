@@ -20,6 +20,11 @@ variable "budget_time_unit" {
   default     = "MONTHLY"
 }
 
+variable "cost_filter_name" {
+  description = "The name of cost filter"
+  type        = string
+}
+
 variable "services" {
   description = "Define the list of services and their limit of budget."
 

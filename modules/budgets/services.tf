@@ -41,5 +41,6 @@ locals {
     VPC            = "Amazon Virtual Private Cloud"
     WAF            = "AWS WAF"
     XRay           = "AWS X-Ray"
+    TOTALINVOICE   = "Amazon Web Services, Inc."
   }
 }

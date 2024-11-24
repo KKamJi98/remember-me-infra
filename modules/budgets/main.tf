@@ -50,7 +50,7 @@ resource "aws_budgets_budget" "budget_resources" {
   time_period_start = "2024-11-12_00:00"
 
   cost_filter {
-    name = "Service"
+    name = var.cost_filter_name
     values = [
       lookup(local.aws_services, each.key)
     ]
