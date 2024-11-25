@@ -4,8 +4,8 @@ variable "account_name" {
 }
 
 variable "account_budget_limit" {
-  description = "Set the budget limit for the AWS account."
-  type        = string
+  description = "List of budget limits for the account."
+  type        = list(string)
 }
 
 variable "budget_limit_unit" {
