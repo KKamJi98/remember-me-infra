@@ -13,9 +13,11 @@ locals {
 }
 
 resource "aws_budgets_budget" "budget_account" {
-  name              = "${var.account_name} Account Monthly Budget"
+  for_each = toset(var.account_budget_limit)
+
+  name              = "${var.account_name} Account Monthly Budget - ${each.key}"
   budget_type       = "COST"
-  limit_amount      = var.account_budget_limit
+  limit_amount      = each.value
   limit_unit        = var.budget_limit_unit
   time_unit         = var.budget_time_unit
   time_period_start = "2024-11-12_00:00"
@@ -47,7 +49,7 @@ resource "aws_budgets_budget" "budget_resources" {
   limit_amount      = each.value.budget_limit
   limit_unit        = var.budget_limit_unit
   time_unit         = var.budget_time_unit
-  time_period_start = "2024-11-12_00:00"
+  time_period_start = "2024-11-01_00:00"
 
   cost_filter {
     name = var.cost_filter_name
