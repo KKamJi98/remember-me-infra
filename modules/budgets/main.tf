@@ -20,7 +20,7 @@ resource "aws_budgets_budget" "budget_account" {
   limit_amount      = each.value
   limit_unit        = var.budget_limit_unit
   time_unit         = var.budget_time_unit
-  time_period_start = "2024-11-12_00:00"
+  time_period_start = "2024-11-01_00:00"
 
   dynamic "notification" {
     for_each = var.notifications
