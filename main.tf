@@ -418,7 +418,7 @@ module "budget_alarms" {
 
 module "budget_alarms_invoice" {
   source               = "./modules/budgets"
-  account_name         = "Prod"
+  account_name         = "Invoice"
   account_budget_limit = 20
   policy_file          = "${path.module}/templates/sns-topic-policy.json"
   cost_filter_name     = "InvoicingEntity"
@@ -462,7 +462,7 @@ module "invoice_chatbot" {
   source             = "./modules/chatbot"
   configuration_name = "aws-invoice-budget"
   iam_role_arn       = module.chatbot_iam_role.arn
-  slack_channel_id   = "C080E1FQ76H"
+  slack_channel_id   = "C082C5SDD2Q"
   slack_team_id      = "T08040UPUG6"
   sns_topic_arns     = module.budget_alarms_invoice.budget_alarms_sns_topic_arn
 }
