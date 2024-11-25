@@ -67,7 +67,7 @@ resource "aws_wafv2_web_acl" "example" {
 
     statement {
       rate_based_statement {
-        limit              = 10000
+        limit              = 500
         aggregate_key_type = "IP"
 
         scope_down_statement {
