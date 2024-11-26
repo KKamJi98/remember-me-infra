@@ -28,11 +28,11 @@ resource "aws_cloudwatch_metric_alarm" "waf_alarm" {
   comparison_operator = "GreaterThanThreshold"
   evaluation_periods  = 1
   metric_name         = "BlockedRequests" # WAF의 Blocked Requests 메트릭 사용
-  namespace           = "AWS/WAFV2"
+  namespace           = "AWS/WAFV2/Rule, WebACL"
   period              = 300 # 5분 단위 평가
   statistic           = "Sum"
   threshold           = 2 # 블록된 요청이 2개 이상이면 알람
-  alarm_description   = "Triggered when WAF detects more than 10 blocked requests in 5 minutes."
+  alarm_description   = "Triggered when WAF detects more than 2 blocked requests in 5 minutes."
   actions_enabled     = true
   alarm_actions       = [aws_sns_topic.waf_alarm_topic.arn]
 
