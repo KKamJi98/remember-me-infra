@@ -420,10 +420,6 @@ module "budget_alarms" {
       notification_type   = "ACTUAL"
     }
   }
-
-  providers = {
-    aws = aws.us_east_1
-  }
 }
 
 ###############################################################
