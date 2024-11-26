@@ -405,7 +405,7 @@ module "budget_alarms" {
   source               = "./modules/budgets"
   account_name         = "Prod"
   account_budget_limit = ["12", "13", "14", "15"]
-  policy_file          = "${path.module}/templates/sns-topic-policy.json"
+  policy_file          = "${path.module}/templates/sns-topic-policy-budget.json"
   cost_filter_name     = "Service"
   services = {
     CloudWatch = {
@@ -419,6 +419,10 @@ module "budget_alarms" {
       threshold_type      = "PERCENTAGE"
       notification_type   = "ACTUAL"
     }
+  }
+
+  providers = {
+    aws = aws.us_east_1
   }
 }
 
