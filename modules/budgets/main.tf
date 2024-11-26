@@ -4,7 +4,7 @@ resource "aws_sns_topic" "account_billing_alarm_topic" {
 
 resource "aws_sns_topic_policy" "account_billing_alarm_policy" {
   arn    = aws_sns_topic.account_billing_alarm_topic.arn
-  policy = local.policy_content
+  policy = local.replaced_policy
 }
 
 locals {
@@ -21,6 +21,10 @@ resource "aws_budgets_budget" "budget_account" {
   limit_unit        = var.budget_limit_unit
   time_unit         = var.budget_time_unit
   time_period_start = "2024-11-01_00:00"
+
+  cost_types {
+    include_credit = false
+  }
 
   dynamic "notification" {
     for_each = var.notifications
