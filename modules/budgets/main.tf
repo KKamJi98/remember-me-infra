@@ -10,7 +10,7 @@ terraform {
 }
 
 resource "aws_sns_topic" "account_billing_alarm_topic" {
-  name = "account-billing-alarm-topic"
+  name = "account-billing-alarm"
 }
 
 resource "aws_sns_topic_policy" "account_billing_alarm_policy" {
