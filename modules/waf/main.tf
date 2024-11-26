@@ -15,7 +15,7 @@ resource "aws_sns_topic" "waf_alarm_topic" {
 
 resource "aws_sns_topic_policy" "waf_alarm_policy" {
   arn    = aws_sns_topic.waf_alarm_topic.arn
-  policy = local.policy_content
+  policy = local.replaced_policy
 }
 
 locals {
