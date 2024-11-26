@@ -4,11 +4,11 @@ resource "aws_apigatewayv2_api" "this" {
   protocol_type = var.protocol_type
 
   cors_configuration {
-    allow_headers = var.allow_headers
-    allow_methods = var.allow_methods
-    allow_origins = var.allow_origins
+    allow_headers  = var.allow_headers
+    allow_methods  = var.allow_methods
+    allow_origins  = var.allow_origins
     expose_headers = var.expose_headers
-    max_age = var.max_age
+    max_age        = var.max_age
   }
 }
 
