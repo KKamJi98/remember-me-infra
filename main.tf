@@ -151,6 +151,7 @@ module "route53" {
 module "WAF" {
   source      = "./modules/waf"
   policy_file = "${path.module}/templates/sns-topic-policy.json"
+  waf_rule    = module.WAF.waf_alarm_rule
 
   providers = {
     aws = aws.us_east_1

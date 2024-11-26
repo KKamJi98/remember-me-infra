@@ -37,7 +37,8 @@ resource "aws_cloudwatch_metric_alarm" "waf_alarm" {
   alarm_actions       = [aws_sns_topic.waf_alarm_topic.arn]
 
   dimensions = {
-    WebACL = aws_wafv2_web_acl.example.name
+    WebACL = var.waf_rule
+    rule   = "rule-1"
   }
 }
 
