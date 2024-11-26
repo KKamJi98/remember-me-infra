@@ -1,0 +1,15 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "AllowAllAWSPublishActions",
+        "Effect": "Allow",
+        "Principal": {
+          "Service": "budgets.amazonaws.com"
+        },
+        "Action": "SNS:Publish",
+        "Resource": "TOPIC_ARN"
+      }
+    ]
+  }
+  
