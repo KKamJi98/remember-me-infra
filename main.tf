@@ -49,6 +49,12 @@ module "chatbot_iam_policy" {
   policy_file = "${path.module}/templates/chatbot-policy.json"
 }
 
+module "chatbot_budget_iam_policy" {
+  source      = "./modules/iam_policy"
+  name        = "chatbot-budget-policy"
+  policy_file = "${path.module}/templates/chatbot-budget-policy.json"
+}
+
 ###############################################################
 ## iam_role
 ###############################################################
@@ -62,6 +68,12 @@ module "lambda_iam_role" {
 module "chatbot_iam_role" {
   source      = "./modules/iam_role"
   name        = "chatbot-role"
+  policy_file = "${path.module}/templates/chatbot-assume-role-policy.json"
+}
+
+module "chatbot_budget_iam_role" {
+  source      = "./modules/iam_role"
+  name        = "chatbot-budget-role"
   policy_file = "${path.module}/templates/chatbot-assume-role-policy.json"
 }
 
@@ -428,7 +440,7 @@ module "budget_alarms" {
 module "chatbot" {
   source             = "./modules/chatbot"
   configuration_name = "aws-budget"
-  iam_role_arn       = module.chatbot_iam_role.arn
+  iam_role_arn       = module.chatbot_budget_iam_role.arn
   slack_channel_id   = "C080E1FQ76H"
   slack_team_id      = "T08040UPUG6"
   sns_topic_arns     = module.budget_alarms.budget_alarms_sns_topic_arn
