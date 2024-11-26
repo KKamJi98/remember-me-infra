@@ -164,13 +164,13 @@ module "WAF" {
 module "api_gateway" {
   source = "./modules/api_gateway"
 
-  name                   = "voca-app-api-gateway"
-  protocol_type          = "HTTP"
-  
+  name          = "voca-app-api-gateway"
+  protocol_type = "HTTP"
+
   allow_headers = ["*"]
   allow_methods = ["GET", "POST"]
   allow_origins = ["https://rememberme.kkamji.net"]
-  max_age = 3600
+  max_age       = 3600
 
   stage_name             = "prod"
   integration_type       = "AWS_PROXY"

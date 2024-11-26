@@ -38,6 +38,7 @@ resource "aws_cloudwatch_metric_alarm" "waf_alarm" {
 
   dimensions = {
     WebACL = aws_wafv2_web_acl.example.name
+    Rule   = "BlockedRequests"
   }
 }
 
