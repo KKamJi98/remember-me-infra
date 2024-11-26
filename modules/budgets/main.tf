@@ -16,6 +16,12 @@ locals {
   replaced_policy = replace(local.policy_content, "TOPIC_ARN", aws_sns_topic.account_billing_alarm_topic.arn)
 }
 
+resource "aws_sns_topic_subscription" "this" {
+  topic_arn = aws_sns_topic.account_billing_alarm_topic.arn
+  protocol  = "https"
+  endpoint  = "https://global.sns-api.chatbot.amazonaws.com"
+}
+
 resource "aws_budgets_budget" "budget_account" {
   for_each = toset(var.account_budget_limit)
 
