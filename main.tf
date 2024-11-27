@@ -99,6 +99,12 @@ module "chatbot_role_policy_attachment_inline" {
   policy_arn = module.chatbot_iam_policy.arn
 }
 
+module "chatbot_budget_role_policy_attachment_inline" {
+  source     = "./modules/iam_role_policy_attachment"
+  role_name  = module.chatbot_budget_iam_role.name
+  policy_arn = module.chatbot_budget_iam_policy.arn
+}
+
 ###############################################################
 ## S3
 ###############################################################
