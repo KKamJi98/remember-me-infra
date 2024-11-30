@@ -27,7 +27,7 @@ variable "runtime" {
 variable "timeout" {
   type        = number
   description = "Timeout of the lambda function"
-  default     = 3
+  default     = 10
 }
 
 variable "environment_variables" {
