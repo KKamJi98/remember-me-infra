@@ -2,6 +2,8 @@
 
 A serverless vocabulary memorization website built on AWS Lambda.
 
+Organization - <https://github.com/vocaAppServerless>
+
 ## Tech Stack
 
 - Frontend   : React
